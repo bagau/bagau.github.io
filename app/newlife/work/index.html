@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ru"></html>
+<head>
+	<meta charset="UTF-8"/>
+	<title>Багау.Приложения - Newlife</title>
+	<link rel="stylesheet" href="/app/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/app/css/bootstrap-theme.min.css"/>
+	<link rel="stylesheet" href="/app/css/style.css"/>
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/app">Главная</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="/app/letter">Письмо</a></li>
+					<li><a href="/app/newlife">ТМО Newlife</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="centerContent">
+			<div class="tmoApp">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<h3 class="workTitle">
+							Техника модификации опыта 
+							<small><a href="#" class="restartApp">Начать заново</a></small>
+						</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2">
+						<div class="setHtml"></div>
+						<div class="prependText"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/underscore-template" id="step1">
+		<h4>1. Дайте вашему опыту название</h4>
+		<p>Опыт - событие, которое с вами произошло в прошлом. Скорее всего оно негативное и вам оно не совсем нравится и вы бы хотели исправить эту ситуацию.</p>
+		<form id="tmoForm">
+			<div class="form-group">
+				<input type="text" name="text" class="form-control" value="<%=obj.text?obj.text:''%>">
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step2">
+		<h4>2. Место. Где вы находитесь в этом опыте?</h4>
+		<p>(дом, улица, класс, подвал, космос… какое-то конкретное место, где происходит событие)</p>
+		<form id="tmoForm">
+			<div class="form-group">
+				<input type="text" name="text" class="form-control" value="<%=obj.text?obj.text:''%>">
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step3">
+		<h4>3. Время. Когда это происходит? (начало и конец опыта)</h4>
+		<form id="tmoForm">
+			<div class="form-group">
+				<textarea type="text" name="text" rows="3" class="form-control"><%=obj.text?obj.text:''%></textarea>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step4">
+		<h4>4. Участники. Кто важные участники этого опыта? Независимо от того, присутствуют они физически в данном опыте или вы только думаете о них.</h4>
+		<form id="tmoForm">
+			<div class="form-group">
+				<textarea type="text" name="text" rows="3" class="form-control"><%=obj.text?obj.text:''%></textarea>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step5">
+		<h4>5. Проживите и запишите опыт, как если бы он происходил прямо сейчас; от первого лица в настоящем времени.</h4>
+		<form id="tmoForm">
+			<div class="form-group">
+				<textarea type="text" name="text" rows="10" class="form-control"><%=obj.text?obj.text:''%></textarea>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step6">
+		<h4>6. Перечень негативов в опыте в хронологическом порядке.</h4>
+		<form id="tmoForm">
+			<%	for ( i = 0; i <= obj.length - 1; i++ ) { %>
+					<%= bagau.partial('step6', obj[i]) %>
+			<%	} %>
+			<div class="appendHtml"></div>
+			<div class="form-group">
+				<button type="button" class="btn btn-danger addItem">+ негатив</button>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step6-partial">
+		<div class="form-group">
+			<textarea rows="2" name="d[][text]" class="form-control"><%=obj.text?obj.text:''%></textarea>
+		</div>
+	</script>
+	<script type="text/underscore-template" id="step7">
+		<h4>7. Какая часть этого опыта была самой нежелательной для вас? (что в этом опыте самое негативное)</h4>
+		<form id="tmoForm">
+			<div class="form-group">
+				<textarea rows="2" name="text" class="form-control"><%=obj.text?obj.text:''%></textarea>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step8">
+		<h4>8. Ожидания, потребности, намерения в опыте. Чего вы на самом деле хотели в этом опыте?</h4>
+		<form id="tmoForm">
+			<div class="form-group">
+				<textarea type="text" name="text" rows="10" class="form-control"><%=obj.text?obj.text:''%></textarea>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step9">
+		<h4>9. Оценка. Оцените этот опыт в целом по шкале от -10 до +10. </h4>
+		<p>(-10 это самое ужасное, что вообще может быть, хуже быть не может; +10 это идеальный опыт, лучше быть не может).</p>
+		<form id="tmoForm">
+			<div class="form-group">
+				<input class="form-control" placeholder="Число от -10 до +10" value="<%=obj.price?obj.price:''%>">
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step10">
+		<h4>10. Каковы предполагаемые причины наличия негатива (или отсутствия позитива) в опыте? </h4>
+		<p>Почему я данный опыт воспринимаю как негативный?</p>
+		<p>Удалите негатив, если: </p>
+		<ul>
+			<li>Причиной негатива является другой негатив</li>
+			<li>Вы больше не испытываете этот негатив</li>
+		</ul>
+		<form id="tmoForm">
+			<%	for ( i = 0; i <= obj.length - 1; i++ ) { 
+					obj[i].id = i; %>
+					<%= bagau.partial('step10', obj[i]) %>
+			<%	} %>
+			<div class="appendHtml"></div>
+			<div class="form-group">
+				<button type="button" class="btn btn-danger addItem">
+					+ негатив и его причину
+				</button>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step10-partial">
+		<div class="form-group">
+			<div class="text-right">
+				<span class="glyphicon glyphicon-remove removeItem" 
+					data-id="<%=obj.id?obj.id:''%>" title="Удалить этот негатив"></span>
+			</div>
+			<textarea rows="2" class="form-control" 
+				name="d[][text]"><%=obj.text?obj.text:''%></textarea>
+		</div>
+	</script>
+	<script type="text/underscore-template" id="step11">
+		<h4>11. Что должно происходить иначе в этом опыте, чтобы он стал более приемлемым для вас? </h4>
+		<p>Что можно убрать, добавить или изменить в этом опыте, чтобы он стал приятнее + обоснование (что должно быть изменено в прошлом, чтобы эти изменения могли произойти).</p>
+		<form id="tmoForm">
+			<%	for ( i = 0; i <= obj.length - 1; i++ ) { %>
+					<%= bagau.partial('step11', obj[i]) %>
+			<%	} %>
+			<div class="appendHtml"></div>
+			<div class="form-group">
+				<button type="button" class="btn btn-primary addItem">+ улучшение</button>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step11-partial">
+		<div class="form-group">
+			<% if ( obj.neg ) { %>
+				<label class="control-label"><%=obj.neg?obj.neg:''%></label>
+			<% } %>
+			<textarea rows="2" class="form-control" name="d[][text]"><%=obj.text?obj.text:''%></textarea>
+		</div>
+	</script>
+	<script type="text/underscore-template" id="step12">
+		<h4>12. Проживите в воображении и запишите измененный опыт</h4>
+		<p>Проживите в воображении и запишите измененный опыт так, как если бы он происходил прямо сейчас; от первого лица в настоящем времени.</p>
+		<form id="tmoForm">
+			<div class="form-group">
+				<textarea type="text" rows="5" name="text" class="form-control"><%=obj.text?obj.text:''%></textarea>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step13">
+		<h4>13. Оценка. Оцените новый опыт по шкале от -10 до +10. </h4>
+		<p>При оценке не нужно сравнивать новый опыт с предыдущим. Оценивайте его сам по себе, как будто существует только этот опыт.</p>
+		<form id="tmoForm">
+			<div class="form-group">
+				<select class="form-control" name="price">
+					<% for (var i = 10; i >= -10; i--) { %>
+						<option><%=i%></option>
+					<% } %>
+				</select>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step14">
+		<h4>14. Определите по своим ощущениям, остался ли еще негатив в опыте.</h4>
+		<p>
+			Первым делом нужно разобраться со всеми негативами и только потом переходить к добавлению позитива в ваш опыт. От этого будет зависеть качество проработки. Выберите нужный вариант и переходите дальше.
+		</p>
+		<form id="tmoForm">
+			<div class="form-group">
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="radio" value="is">
+				    Остался еще негатив
+				  </label>
+				</div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="radio" value="isnot">
+				    Негатива в этом событии больше нет
+				  </label>
+				</div>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step15">
+		<h4>15. Выводы </h4>
+		<p>Какие выводы, решения, осознания можно сделать, какие жизненные уроки, опыт можно извлечь в результате проработки события?</p>
+		<form id="tmoForm">
+			<%	for ( i = 0; i <= obj.length - 1; i++ ) { %>
+					<%= bagau.partial('step15', obj[i]) %>
+			<%	} %>
+			<div class="appendHtml"></div>
+			<div class="form-group">
+				<button type="button" class="btn btn-primary addItem">Добавить вывод</button>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step15-partial">
+		<div class="form-group">
+			<textarea rows="2" class="form-control" name="d[][text]"><%=obj.text?obj.text:''%></textarea>
+		</div>
+	</script>
+	<script type="text/underscore-template" id="step16">
+		<h4>16. Причины негатива на самом деле</h4>
+		<p>Каковы НА САМОМ ДЕЛЕ причины наличия негатива в опыте? Кто ответственен за наличие негатива в опыте?</p>
+		<p>Поставьте галочку, если вы до этого обвиняли кого-то другого в этом негативе, но сейчас поняли, что вы были сами ответственны за то, что случилось.</p>
+		<form id="tmoForm">
+			<div class="form-group">
+				<textarea rows="2" class="form-control" name="text"><%=obj.text?obj.text:''%></textarea>
+			</div>
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="myself"> Я раньше обвинял кого-то другого, но оказался ответственен сам
+				</label>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step17">
+		<h4>17. Попросите прощения</h4>
+		<p>Если вы ответственны за наличие негатива в опыте, а до этого обвиняли (считали ответственными) других – простите их, признайте свою неправоту и извинитесь, попросите у них прощения (можно в воображении).</p>
+		<form id="tmoForm">
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step18">
+		<h4>18. Глобальный вывод</h4>
+		<p>Какой глобальный вывод можно сделать, чтобы изменить поведение/образ мыслей; что надо сделать или начать делать прямо сейчас, чтобы не попадать в дальнейшем в подобные ситуации или прекратить их повторение.</p>
+		<form id="tmoForm">
+			<div class="form-group">
+				<textarea rows="2" name="text" class="form-control"><%=obj.text?obj.text:''%></textarea>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step19">
+		<h4>19. Дайте подтверждение</h4>
+		<p>Дайте подтверждение, что вы действительно улучшили опыт, напишите: «У меня получилось! Я молодец!»</p>
+		<form id="tmoForm">
+			<div class="form-group">
+				<textarea rows="2" name="text" class="form-control"><%=obj.text?obj.text:''%></textarea>
+			</div>
+			<%= bagau.partial('formButtons', '') %>
+		</form>
+	</script>
+	<script type="text/underscore-template" id="step20">
+		<h4>20. Важный момент</h4>
+		<p>Если вы получили мощный инсайт, прозрение, вам стало хорошо, следует на время не брать к рассмотрению новые опыты. Насладитесь успехом, радуйтесь вашему успеху, будьте полностью в этом.</p>
+		<p>На этом текущая проработка завершена. Заходите к нам еще!</p>
+	</script>
+	<script type="text/underscore-template" id="formButtons-partial">
+		<div class="form-group">
+			<button type="button" class="btn btn-primary prevButton">Назад</button>
+			<button type="submit" class="btn btn-success">Вперед</button>
+		</div>
+	</script>
+
+	
+	<div class="footer">
+		<p class="text-center">Приложения по психологии и коучингу. Автор - <a href="http://bagau.ru" target="_blank">Рафис Багаутдинов.</a></p>
+	</div>
+	<script type="text/javascript" src="/app/js/lib/jquery.min.js"></script>
+	<script type="text/javascript" src="/app/js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/app/js/lib/jquery.serializejson.min.js"></script>
+	<script type="text/javascript" src="/app/js/common/functions.js"></script>
+	<script type="text/javascript" src="/app/js/letter/letter.js"></script>
+	<script type="text/javascript" src="/app/js/newlife/newlife-functions.js"></script>
+	<script type="text/javascript" src="/app/js/newlife/newlife.js"></script>
+</body>
